@@ -16,8 +16,12 @@ interrupt VectorNumber_Vpit0  void PIT_ISR1(void)
 #pragma CODE_SEG DEFAULT
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
-void  interrupt 21 SCIbu1_re(void)
+
+void  interrupt VectorNumber_Vsci1 SCIbu1_re(void)
 {
+	unsigned char ch;
+	ch = SCI1_Read();
+	SCI1_Send(ch):
 //
 //    static i = 0;
 //    unsigned char ch;

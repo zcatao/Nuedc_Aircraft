@@ -24,7 +24,9 @@ void IIC_Ack(void);
 
 void IIC_NAck(void);
 
-bool IIC_Wait_Ack(void);
+char IIC_Wait_Ack(void);
+
+#endif
 
 
 
