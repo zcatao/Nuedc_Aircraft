@@ -38,7 +38,7 @@ typedef char                char_t;
 #pragma   LINK_INFO DERIVATIVE "MC9S12XS128"
 
 #include "math.h"
-
+#include <stdio.h>
 
 #include  "CPU_BUS.h"
 

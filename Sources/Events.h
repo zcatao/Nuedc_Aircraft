@@ -20,10 +20,6 @@ __interrupt void PIT_ISR1(void);
 
 #pragma CODE_SEG DEFAULT
 
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
 
-__interrupt void SCIbu1_re(void);
-
-#pragma CODE_SEG DEFAULT
 
 #endif

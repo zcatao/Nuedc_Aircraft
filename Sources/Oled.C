@@ -2,6 +2,8 @@
 #include "include.h"
 
 
+uint16_t oled_wd_indx;
+
 
 const uchar F6x8[][6] =
 {
@@ -326,7 +328,9 @@ void LED_P6x8Char(uchar ucIdxX, uchar ucIdxY, uchar ucData)
         ucIdxX = 0;
         ucIdxY++;
     }
-
+	if (ucIdxY > 7){
+		ucIdxY = 0;
+	}
     LED_SetPos(ucIdxX, ucIdxY);
 
     for(i = 0; i < 6; i++)
@@ -376,6 +380,7 @@ void LED_P6x8Value(uchar ucIdxX, uchar ucIdxY,uint Data)
 {
     uint DataTmp;
     //LED_SetPos(ucIdxX,ucIdxY);
+
     DataTmp = Data;
     LED_P6x8Char(ucIdxX,ucIdxY,DataTmp/100+48);
     LED_P6x8Char(ucIdxX+6,ucIdxY,DataTmp/10-DataTmp/100*10+48);
@@ -413,3 +418,13 @@ void LED_P6x8Valuef(uchar ucIdxX,uchar ucIdxY , float Data)
     LED_P6x8Char(ucIdxX+6,ucIdxY,( DataTmp /= 10 ) % 10 + 48);
     LED_P6x8Char(ucIdxX,ucIdxY,( DataTmp /= 10 ) % 10 + 48);
 }
+
+void led_printf(uint8_t dat){
+
+	uint8_t y = (oled_wd_indx >> 7) & 0xff;
+	uint8_t x = (oled_wd_indx) & 0xff;
+	oled_wd_indx += 6;
+	(x,y,dat);
+	LED_P6x8Char(x, y, dat);
+}
+

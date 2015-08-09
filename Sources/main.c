@@ -1,33 +1,51 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 #include "Include.h"
+#include <stdio.h>
+#include <time.h>
+#define DEBUG
 
-
-void TERMIO_PutChar(char C){
-	SCI1_Send(C);
-}
-char TERMIO_GetChar(void){
-	return SCI1_Read();
-}
+volatile unsigned char datatemp;
 
 
 
 void main(void) {
-
-	SetBusCLK_80M();
-	SCI1_Init();
-	SPR_init();
 	
-	DDRJ_DDRJ0 = 1;
-	PPSJ_PPSJ0 = 0;
-	PERJ_PERJ0 = 1;
-	PTJ_PTJ0 = 1;
+	volatile uint32_t   time1 = 0, time2 = 0;
+
+	time1 = clock();
+	SetBusCLK_80M();
+	
+	SCI1_Init();
+
+#ifdef DEBUG
+	printf("初始化......\n");
+	printf("锁相环已稳定，总线频率：%ldM\n", BUS_FREQ/1000000);
+	printf("串口初始化成功，波特率：%ld\n", BAUD1);
+#else
+	printf("没有输出咯");
+#endif // DEBUG
+	SPR_init();
+	oled_Init();
+	LED_P6x8Str(10, 0, "HoHai University");
+#ifdef DEBUG
+	printf("系统初始化成功\n");
+#endif // DEBUG
 
 	EnableInterrupts;
-	
+
+
 	for (;;){
 
-		SCI1_Send('I');
+		while (UartBuf_Cnt(&UartRxbuf)){
+
+			//UartBuf_WD(&UartTxbuf, UartBuf_RD(&UartRxbuf));
+
+			//SCI1CR2_TIE = 1;
+
+		}
+
+		//SCI1_Send('I');
 	}
 	
 	

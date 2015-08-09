@@ -12,7 +12,7 @@
 #ifndef   CPU_BUS_H_
 #define	  CPU_BUS_H_
 
-#define BUS_FREQ 64000000
+#define BUS_FREQ 80000000
 
 
 
